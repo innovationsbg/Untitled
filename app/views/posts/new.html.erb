@@ -1,0 +1,20 @@
+<% unless @post.errors.empty? %>
+  <ul>
+    <% @post.errors.full_messages.each do |m| %>
+      <li>
+        <%=m %>
+      </li>
+    <% end %>
+  </ul>
+<%end %>
+<h1><%=flash[:success]%></h1>
+<%= form_for @post, url: posts_create_path do |f| %>
+
+  <%=f.text_field :title, placeholder: 'Title' %>
+  <%= f.fields_for :languages do |i| %>
+    <%=i.text_field :language, placeholder: 'Lang 1', name: 'post[languages_attributes][][language]' %>
+    <%=i.text_field :language, placeholder: 'Lang 2', name: 'post[languages_attributes][][language]' %>
+    <%=i.text_field :language, placeholder: 'Lang 3', name: 'post[languages_attributes][][language]' %>
+  <% end %>
+  <%=f.submit %>
+<% end %>
